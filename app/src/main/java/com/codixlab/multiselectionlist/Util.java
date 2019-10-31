@@ -21,12 +21,10 @@ public class Util {
 
         for (int i = 0; i < drw_arr.length(); i++) {
             Inbox obj = new Inbox();
-            obj.image = drw_arr.getResourceId(i, -1);
             obj.from = name_arr[i];
             obj.email = "abc@gmail.com";
             obj.message = ctx.getResources().getString(R.string.lorem_ipsum);
             obj.date = date_arr[randInt(date_arr.length - 1)];
-            obj.imageDrw = ctx.getResources().getDrawable(obj.image);
             items.add(obj);
         }
         Collections.shuffle(items);
@@ -43,6 +41,6 @@ public class Util {
         Window window = activity.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(activity.getResources().getColor(color));
+        window.setStatusBarColor(activity.getResources().getColor(R.color.colorPrimary));
     }
 }

@@ -70,8 +70,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     itemClick.onLongPress(view, list.get(position), position);
                     return true;
                 }
-
-
             }
         });
         toggleIcon(holder.bi, position);
@@ -82,9 +80,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         if (selectedItems.get(position, false)) {
             bi.lytImage.setVisibility(View.GONE);
             bi.lytChecked.setVisibility(View.VISIBLE);
+            if (selectedIndex == position) selectedIndex = -1;
         } else {
             bi.lytImage.setVisibility(View.VISIBLE);
             bi.lytChecked.setVisibility(View.GONE);
+            if (selectedIndex == position) selectedIndex = -1;
         }
     }
 
@@ -99,6 +99,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public void removeItems(int position) {
         list.remove(position);
         selectedIndex = -1;
+
+
     }
 
     @Override
