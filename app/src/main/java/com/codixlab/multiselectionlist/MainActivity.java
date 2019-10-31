@@ -83,14 +83,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void deleteItemFromInbox() {
-        List<Integer> items = adapter.getSelectedItemPositions();
-        for (int i = items.size() - 1; i >= 0; i--) {
-            adapter.removeItems(items.get(i));
+    private void deleteInboxes() {
+        List<Integer> selectedItemPositions = adapter.getSelectedItems();
+        for (int i = selectedItemPositions.size() - 1; i >= 0; i--) {
+            adapter.removeItems(selectedItemPositions.get(i));
         }
         adapter.notifyDataSetChanged();
     }
-
 
     private class ActionCallback implements ActionMode.Callback {
         @Override
@@ -109,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.delteItem:
-                    deleteItemFromInbox();
+                    deleteInboxes();
                     mode.finish();
                     return true;
             }

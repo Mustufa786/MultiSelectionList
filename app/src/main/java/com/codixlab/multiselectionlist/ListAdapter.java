@@ -58,7 +58,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 if (itemClick == null) return;
-                    itemClick.onItemClick(view, list.get(position), position);
+                itemClick.onItemClick(view, list.get(position), position);
             }
         });
         holder.bi.lytParent.setOnLongClickListener(new View.OnLongClickListener() {
@@ -74,15 +74,26 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
             }
         });
+        toggleIcon(holder.bi, position);
 
     }
 
-    public List<Integer> getSelectedItemPositions() {
-        List<Integer> positions = new ArrayList<>(selectedItems.size());
-        for (int i : positions) {
-            positions.add(selectedItems.keyAt(i));
+    private void toggleIcon(ListItemBinding bi, int position) {
+        if (selectedItems.get(position, false)) {
+            bi.lytImage.setVisibility(View.GONE);
+            bi.lytChecked.setVisibility(View.VISIBLE);
+        } else {
+            bi.lytImage.setVisibility(View.VISIBLE);
+            bi.lytChecked.setVisibility(View.GONE);
         }
-        return positions;
+    }
+
+    public List<Integer> getSelectedItems() {
+        List<Integer> items = new ArrayList<>(selectedItems.size());
+        for (int i = 0; i < selectedItems.size(); i++) {
+            items.add(selectedItems.keyAt(i));
+        }
+        return items;
     }
 
     public void removeItems(int position) {
@@ -107,7 +118,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
 
-    public void clearSelection(){
+    public void clearSelection() {
         selectedItems.clear();
         notifyDataSetChanged();
     }
