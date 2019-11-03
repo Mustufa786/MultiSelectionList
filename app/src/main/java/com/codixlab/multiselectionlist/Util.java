@@ -37,6 +37,9 @@ public class Util {
         return r.nextInt((max - min) + 1) + min;
     }
 
+    /*
+      this will toggle or action bar color
+     */
     public static void toggleStatusBarColor(Activity activity, int color) {
         Window window = activity.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

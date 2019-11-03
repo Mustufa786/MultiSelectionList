@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
 
+        actionCallback = new ActionCallback();
         list = Util.getInboxData(this);
         list.addAll(Util.getInboxData(this));
         adapter = new ListAdapter(this, list);
@@ -62,8 +63,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        actionCallback = new ActionCallback();
+
     }
+
+    /*
+       toggling action bar that will change the color and option
+     */
 
     private void toggleActionBar(int position) {
         if (actionMode == null) {
@@ -71,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
         }
         toggleSelection(position);
     }
+
+    /*
+       toggle selection of items and show the count of selected items on the action bar
+     */
 
     private void toggleSelection(int position) {
         adapter.toggleSelection(position);
@@ -83,7 +92,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void deleteInboxes() {
+    /*
+       after selection, we need to delete selected items by tapping on delete icon
+     */
+    private void deleteInbox() {
         List<Integer> selectedItemPositions = adapter.getSelectedItems();
         for (int i = selectedItemPositions.size() - 1; i >= 0; i--) {
             adapter.removeItems(selectedItemPositions.get(i));
@@ -108,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.delteItem:
-                    deleteInboxes();
+                    deleteInbox();
                     mode.finish();
                     return true;
             }

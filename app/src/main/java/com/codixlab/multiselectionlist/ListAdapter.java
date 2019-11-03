@@ -76,6 +76,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     }
 
+    /*
+       This method will trigger when we we long press the item and it will change the icon of the item to check icon.
+     */
     private void toggleIcon(ListItemBinding bi, int position) {
         if (selectedItems.get(position, false)) {
             bi.lytImage.setVisibility(View.GONE);
@@ -88,6 +91,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
     }
 
+    /*
+       This method helps you to get all selected items from the list
+     */
+
     public List<Integer> getSelectedItems() {
         List<Integer> items = new ArrayList<>(selectedItems.size());
         for (int i = 0; i < selectedItems.size(); i++) {
@@ -96,11 +103,44 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         return items;
     }
 
+    /*
+       this will be used when we want to delete items from our list
+     */
     public void removeItems(int position) {
         list.remove(position);
         selectedIndex = -1;
 
+    }
 
+    /*
+       for clearing our selection
+     */
+
+    public void clearSelection() {
+        selectedItems.clear();
+        notifyDataSetChanged();
+    }
+
+    /*
+             this function will toggle the selection of items
+     */
+
+    public void toggleSelection(int position) {
+        selectedIndex = position;
+        if (selectedItems.get(position, false)) {
+            selectedItems.delete(position);
+        } else {
+            selectedItems.put(position, true);
+        }
+        notifyItemChanged(position);
+    }
+
+    /*
+      How many items have been selected? this method exactly the same . this will return a total number of selected items.
+     */
+
+    public int selectedItemCount() {
+        return selectedItems.size();
     }
 
     @Override
@@ -119,26 +159,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
     }
 
-
-    public void clearSelection() {
-        selectedItems.clear();
-        notifyDataSetChanged();
-    }
-
-    public void toggleSelection(int position) {
-        selectedIndex = position;
-        if (selectedItems.get(position, false)) {
-            selectedItems.delete(position);
-        } else {
-            selectedItems.put(position, true);
-        }
-        notifyItemChanged(position);
-    }
-
-
-    public int selectedItemCount() {
-        return selectedItems.size();
-    }
 
     public interface OnItemClick {
 
