@@ -51,6 +51,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         holder.bi.email.setText(list.get(position).email);
         holder.bi.imageLetter.setText(list.get(position).from.substring(0, 1));
         holder.bi.date.setText(list.get(position).date);
+
+        //Changes the activated state of this view.
         holder.bi.lytParent.setActivated(selectedItems.get(position, false));
 
 
